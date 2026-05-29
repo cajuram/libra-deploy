@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libra — Orientación jurídica en prescripción de deudas · Colombia</title>
+  <meta name="description" content="Averiguamos si tu comparendo, deuda o reporte en Datacrédito ya prescribió. Orientación jurídica por WhatsApp. Veridiam S.A.S. · NIT 901.451.481-2 · Bogotá." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://libra.veridiam.co" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Libra — Tu deuda puede ya no ser válida" />
+  <meta property="og:description" content="Miles de colombianos tienen deudas y comparendos que ya prescribieron legalmente. Averiguamos si el tuyo es uno de ellos." />
+  <meta property="og:url" content="https://libra.veridiam.co" />
+  <meta property="og:locale" content="es_CO" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --paper:   #FAF6EB;
+      --cream:   #F2EFE4;
+      --ink:     #1A1612;
+      --ink-2:   #3A332C;
+      --muted:   #6B6258;
+      --line:    #D9D2BF;
+      --deep:    #0E7490;
+      --wa:      #25D366;
+      --white:   #FFFFFF;
+
+      --serif:   'Newsreader', Georgia, serif;
+      --sans:    'Inter', system-ui, sans-serif;
+      --mono:    'JetBrains Mono', monospace;
+
+      --rule: repeating-linear-gradient(
+        0deg, transparent, transparent 27px,
+        rgba(26,22,18,.018) 27px, rgba(26,22,18,.018) 28px
+      );
+    }
+
+    /* ── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.65; overflow-x: hidden; }
+    img, svg { display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT ─────────────────────────────── */
+    .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 clamp(20px,5vw,60px); }
+
+    /* ── NAVIGATION ─────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(26,22,18,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+    }
+    .nav__brand { display: flex; align-items: baseline; gap: 10px; }
+    .nav__name {
+      font-family: var(--mono); font-size: 18px; font-weight: 600;
+      letter-spacing: -.01em; color: var(--white);
+    }
+    .nav__sep { color: rgba(255,255,255,.25); font-family: var(--mono); font-size: 13px; }
+    .nav__by {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.4);
+    }
+    .nav__cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--wa); color: #fff;
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      padding: 9px 18px; border-radius: 3px;
+      transition: opacity .15s;
+    }
+    .nav__cta:hover { opacity: .88; }
+    .nav__cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── HERO ────────────────────────────────── */
+    .hero {
+      background: var(--ink);
+      background-image: var(--rule);
+      padding: 160px 0 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(14,116,144,.6) 40%, transparent);
+    }
+    .hero__grid {
+      display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: center;
+    }
+    .hero__eyebrow {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 32px;
+    }
+    .hero__eyebrow-bar { width: 28px; height: 1px; background: var(--deep); }
+    .hero__eyebrow-text {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--deep);
+    }
+    .hero__headline {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(42px, 5.5vw, 76px);
+      letter-spacing: -.04em; line-height: 1.05;
+      color: var(--white); margin-bottom: 28px;
+    }
+    .hero__headline em { color: var(--deep); font-style: italic; }
+    .hero__sub {
+      font-size: clamp(15px,1.2vw,17px); line-height: 1.75;
+      color: rgba(255,255,255,.6); max-width: 520px; margin-bottom: 48px;
+    }
+    .hero__cta-stack { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--wa); color: #fff;
+      font-family: var(--sans); font-size: 16px; font-weight: 600;
+      padding: 16px 28px; border-radius: 4px;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn-wa:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .hero__note {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+    }
+    .hero__note::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--wa); border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* Stats card */
+    .hero__stats {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      padding: 36px 32px;
+    }
+    .stat { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .stat:first-child { padding-top: 0; }
+    .stat__num {
+      font-family: var(--mono); font-size: 32px; font-weight: 600;
+      color: var(--white); letter-spacing: -.03em; line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat__num span { color: var(--deep); }
+    .stat__label {
+      font-family: var(--sans); font-size: 12px;
+      color: rgba(255,255,255,.4); line-height: 1.4;
+    }
+
+    @media (max-width: 860px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+      .stat { border-bottom: none; border-right: 1px solid rgba(255,255,255,.07); padding: 16px 20px; }
+      .stat:nth-child(even) { border-right: none; }
+    }
+    @media (max-width: 500px) {
+      .hero { padding: 120px 0 80px; }
+      .hero__stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .stat:last-child { border-bottom: none; }
+    }
+
+    /* ── BAND ────────────────────────────────── */
+    .band {
+      background: var(--deep);
+      padding: 18px 0;
+      overflow: hidden;
+    }
+    .band__inner {
+      display: flex; gap: 48px; align-items: center;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.7);
+      white-space: nowrap; flex-wrap: wrap;
+    }
+    .band__item { display: flex; align-items: center; gap: 10px; }
+    .band__dot { width: 4px; height: 4px; background: rgba(255,255,255,.4); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── SECCIÓN SERVICIOS ───────────────────── */
+    .services { padding: 100px 0; background: var(--paper); }
+    .sec-head { margin-bottom: 60px; }
+    .sec-label {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .sec-label-bar { width: 24px; height: 1px; background: var(--deep); }
+    .sec-label-text {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--deep);
+    }
+    .sec-h {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(28px,3.5vw,44px);
+      letter-spacing: -.03em; line-height: 1.1; color: var(--ink);
+    }
+    .sec-sub {
+      font-size: 16px; color: var(--muted); line-height: 1.7;
+      max-width: 520px; margin-top: 16px;
+    }
+
+    .services__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    @media (max-width: 720px) { .services__grid { grid-template-columns: 1fr; } }
+
+    .svc {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 36px 32px;
+      position: relative;
+      transition: border-color .2s;
+    }
+    .svc:hover { border-color: var(--deep); }
+    .svc__icon {
+      width: 40px; height: 40px; margin-bottom: 24px;
+      color: var(--deep);
+    }
+    .svc__title {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: 22px; letter-spacing: -.02em;
+      color: var(--ink); margin-bottom: 10px;
+    }
+    .svc__desc {
+      font-size: 14px; color: var(--ink-2); line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .svc__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 20px; border-top: 1px solid var(--line);
+    }
+    .svc__norm {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .svc__price {
+      font-family: var(--mono); font-size: 11px; font-weight: 600;
+      color: var(--deep);
+    }
+
+    /* ── CÓMO FUNCIONA ───────────────────────── */
+    .how { padding: 100px 0; background: var(--cream); }
+    .how__grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+      margin-top: 56px;
+    }
+    @media (max-width: 700px) { .how__grid { grid-template-columns: 1fr; } }
+    .step {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 36px 28px;
+    }
+    .step__num {
+      font-family: var(--mono); font-size: 11px; font-weight: 600;
+      letter-spacing: .1em; color: var(--deep); margin-bottom: 28px;
+    }
+    .step__title {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: 20px; letter-spacing: -.02em; color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .step__body { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+    /* ── LEGAL STRIP ─────────────────────────── */
+    .legal-strip { padding: 80px 0; background: var(--paper); border-top: 1px solid var(--line); }
+    .legal-strip__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    @media (max-width: 700px) { .legal-strip__inner { grid-template-columns: 1fr; gap: 40px; } }
+    .legal-strip__copy {}
+    .legal-strip__h {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(24px,3vw,36px); letter-spacing: -.03em;
+      color: var(--ink); margin-bottom: 16px; line-height: 1.1;
+    }
+    .legal-strip__p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+    .norms { display: flex; flex-direction: column; gap: 12px; }
+    .norm {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--line); border-radius: 3px;
+      background: var(--white);
+    }
+    .norm__icon { width: 20px; height: 20px; color: var(--deep); flex-shrink: 0; margin-top: 1px; }
+    .norm__ref {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--deep); margin-bottom: 2px;
+    }
+    .norm__text { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+
+    /* ── CTA FINAL ───────────────────────────── */
+    .cta-block {
+      background: var(--ink);
+      padding: 100px 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-block::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 320px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--deep), transparent);
+    }
+    .cta-block__label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--deep); margin-bottom: 24px;
+    }
+    .cta-block__h {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(32px,4.5vw,60px); letter-spacing: -.04em;
+      color: var(--white); margin-bottom: 20px; line-height: 1.05;
+    }
+    .cta-block__sub {
+      font-size: 16px; color: rgba(255,255,255,.5);
+      max-width: 480px; margin: 0 auto 48px; line-height: 1.7;
+    }
+    .cta-block__wa {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 24px;
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    .footer {
+      background: #110F0C;
+      padding: 48px 0;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .footer__inner {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .footer__brand-name {
+      font-family: var(--mono); font-size: 16px; font-weight: 600;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .footer__brand-sub {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(255,255,255,.3); line-height: 1.8;
+    }
+    .footer__right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .footer__wa {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; color: var(--wa);
+      letter-spacing: .04em;
+      transition: opacity .15s;
+    }
+    .footer__wa:hover { opacity: .75; }
+    .footer__wa svg { width: 14px; height: 14px; }
+    .footer__disc {
+      font-size: 11px; color: rgba(255,255,255,.2); line-height: 1.6;
+      max-width: 320px; text-align: right;
+    }
+    @media (max-width: 600px) {
+      .footer__inner { flex-direction: column; }
+      .footer__right { align-items: flex-start; }
+      .footer__disc { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Navegación principal">
+    <div class="wrap nav__inner">
+      <div class="nav__brand">
+        <span class="nav__name">Libra</span>
+        <span class="nav__sep">/</span>
+        <span class="nav__by">Veridiam S.A.S.</span>
+      </div>
+      <a
+        href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
+        class="nav__cta"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Escribir al WhatsApp de Libra"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escríbenos ahora
+      </a>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────── -->
+  <section class="hero" aria-label="Sección principal">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-bar"></div>
+          <span class="hero__eyebrow-text">Orientación jurídica · Colombia</span>
+        </div>
+        <h1 class="hero__headline serif-headline">
+          Tu deuda puede<br>ya <em>no ser válida</em>
+        </h1>
+        <p class="hero__sub">
+          La ley colombiana establece plazos precisos de prescripción para comparendos, predial y deudas bancarias. Una vez vencidos, la obligación pierde su exigibilidad legal.
+        </p>
+        <div class="hero__cta-stack">
+          <a
+            href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
+            class="btn-wa"
+            target="_blank" rel="noopener noreferrer"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Consultar mi caso gratis
+          </a>
+          <p class="hero__note">Diagnóstico inicial sin costo · Solo WhatsApp</p>
+        </div>
+      </div>
+
+      <div class="hero__stats" aria-label="Indicadores">
+        <div class="stat">
+          <div class="stat__num">3<span>años</span></div>
+          <div class="stat__label">Plazo de prescripción de comparendos<br>(Art. 159 Ley 769/2002)</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">5<span>años</span></div>
+          <div class="stat__label">Prescripción de deudas de predial<br>(Art. 817 E.T. mod. Ley 1066/2006)</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">4<span>años</span></div>
+          <div class="stat__label">Máximo para reporte negativo en Datacrédito<br>(Ley 1266/2008, Art. 13)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BAND ──────────────────────────────────── -->
+  <div class="band" aria-hidden="true">
+    <div class="wrap band__inner">
+      <span class="band__item"><span class="band__dot"></span>Constituida en 2021</span>
+      <span class="band__item"><span class="band__dot"></span>NIT 901.451.481-2</span>
+      <span class="band__item"><span class="band__dot"></span>Cámara de Comercio de Bogotá</span>
+      <span class="band__item"><span class="band__dot"></span>Matrícula 03331984</span>
+      <span class="band__item"><span class="band__dot"></span>Bogotá D.C. · Colombia</span>
+    </div>
+  </div>
+
+  <!-- ─── SERVICIOS ─────────────────────────────── -->
+  <section class="services" aria-labelledby="services-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-label">
+          <div class="sec-label-bar"></div>
+          <span class="sec-label-text">Nuestros servicios</span>
+        </div>
+        <h2 class="sec-h" id="services-h">Cuatro áreas donde<br>la norma trabaja a tu favor</h2>
+        <p class="sec-sub">Cada servicio incluye evaluación del caso, diagnóstico de prescripción y elaboración del documento legal correspondiente.</p>
+      </div>
+
+      <div class="services__grid">
+
+        <!-- 1 -->
+        <div class="svc">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/>
+          </svg>
+          <h3 class="svc__title">Comparendos de tránsito</h3>
+          <p class="svc__desc">Si tu comparendo tiene más de 3 años desde su fecha de firmeza sin que te hayan notificado un mandamiento de pago, la acción de cobro coactivo está prescrita. Preparamos el derecho de petición o la excepción procesal.</p>
+          <div class="svc__footer">
+            <span class="svc__norm">Art. 159 · Ley 769/2002</span>
+            <span class="svc__price">Desde $35.000</span>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="svc">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
+          </svg>
+          <h3 class="svc__title">Impuesto predial</h3>
+          <p class="svc__desc">La acción de cobro coactivo del predial prescribe en 5 años contados desde el vencimiento de cada vigencia fiscal. Deudas antiguas con el municipio pueden ya no ser exigibles si no ha habido cobro coactivo notificado.</p>
+          <div class="svc__footer">
+            <span class="svc__norm">Art. 817 E.T. · Ley 1066/2006</span>
+            <span class="svc__price">Desde $50.000</span>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="svc">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/>
+          </svg>
+          <h3 class="svc__title">Deudas bancarias y financieras</h3>
+          <p class="svc__desc">Tarjetas de crédito, microcréditos, libranzas y préstamos de cooperativas tienen términos de prescripción ejecutiva de 3 a 5 años según el título. Si no han demandado en ese plazo, la deuda puede estar prescrita.</p>
+          <div class="svc__footer">
+            <span class="svc__norm">Art. 2536 C.C. · Ley 791/2002</span>
+            <span class="svc__price">Desde $60.000</span>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="svc">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+          </svg>
+          <h3 class="svc__title">Eliminación de reportes Datacrédito</h3>
+          <p class="svc__desc">La Ley de Habeas Data establece que los reportes negativos se eliminan al doble del tiempo en mora, sin exceder 4 años desde la extinción. Si tu reporte sigue activo más allá de ese plazo, es ilegal y puede retirarse.</p>
+          <div class="svc__footer">
+            <span class="svc__norm">Ley 1266/2008 · Art. 13</span>
+            <span class="svc__price">Desde $80.000</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CÓMO FUNCIONA ─────────────────────────── -->
+  <section class="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-label">
+          <div class="sec-label-bar"></div>
+          <span class="sec-label-text">El proceso</span>
+        </div>
+        <h2 class="sec-h" id="how-h">Tres pasos,<br>sin trámites presenciales</h2>
+      </div>
+
+      <div class="how__grid">
+        <div class="step">
+          <div class="step__num">01 &mdash; Contacto</div>
+          <h3 class="step__title">Escríbenos por WhatsApp</h3>
+          <p class="step__body">Cuéntanos el tipo de deuda o comparendo, la fecha aproximada y el municipio. No necesitas ningún documento en este momento.</p>
+        </div>
+        <div class="step">
+          <div class="step__num">02 &mdash; Diagnóstico</div>
+          <h3 class="step__title">Evaluamos tu caso sin costo</h3>
+          <p class="step__body">Verificamos si el término de prescripción ya se cumplió según la norma aplicable. Te informamos el resultado y qué puede hacerse.</p>
+        </div>
+        <div class="step">
+          <div class="step__num">03 &mdash; Gestión</div>
+          <h3 class="step__title">Preparamos el documento legal</h3>
+          <p class="step__body">Si procede, elaboramos el derecho de petición, la excepción o la queja ante la SIC. Te orientamos en cada paso del proceso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LEGAL STRIP ───────────────────────────── -->
+  <section class="legal-strip" aria-labelledby="legal-h">
+    <div class="wrap legal-strip__inner">
+      <div class="legal-strip__copy">
+        <h2 class="legal-strip__h" id="legal-h">Fundamento<br>en la norma vigente</h2>
+        <p class="legal-strip__p">No ofrecemos estrategias creativas. Aplicamos derechos que la legislación colombiana ya te otorga. La prescripción no es un truco legal — es un principio reconocido por el Código Civil, el Estatuto Tributario y las leyes de protección al consumidor financiero.</p>
+      </div>
+      <div class="norms" role="list">
+        <div class="norm" role="listitem">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div>
+            <div class="norm__ref">Art. 159 · Ley 769/2002</div>
+            <div class="norm__text">Prescripción de la acción de cobro de comparendos en 3 años</div>
+          </div>
+        </div>
+        <div class="norm" role="listitem">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div>
+            <div class="norm__ref">Art. 817 E.T. · Ley 1066/2006</div>
+            <div class="norm__text">Prescripción de la acción de cobro coactivo del predial en 5 años</div>
+          </div>
+        </div>
+        <div class="norm" role="listitem">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div>
+            <div class="norm__ref">Art. 2536 C.C. · Ley 791/2002</div>
+            <div class="norm__text">Prescripción ordinaria y ejecutiva de deudas bancarias y comerciales</div>
+          </div>
+        </div>
+        <div class="norm" role="listitem">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div>
+            <div class="norm__ref">Ley 1266/2008 · Art. 13</div>
+            <div class="norm__text">Término máximo de permanencia de datos negativos en centrales de riesgo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ───────────────────────────────────── -->
+  <section class="cta-block" aria-labelledby="cta-h">
+    <div class="wrap">
+      <p class="cta-block__label">¿Aplica en tu caso?</p>
+      <h2 class="cta-block__h" id="cta-h">Solo necesitas la fecha.<br>Nosotros hacemos el resto.</h2>
+      <p class="cta-block__sub">Cuéntanos cuándo ocurrió la deuda o el comparendo. En menos de 24 horas te decimos si ya prescribió y qué puedes hacer.</p>
+      <a
+        href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
+        class="btn-wa"
+        style="margin: 0 auto;"
+        target="_blank" rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consultar por WhatsApp
+      </a>
+      <p class="cta-block__wa">+57 305 8755378 · Respuesta en menos de 24 h</p>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────── -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <div class="footer__brand-name">Libra</div>
+        <div class="footer__brand-sub">
+          VERIDIAM S.A.S. · NIT 901.451.481-2<br>
+          Matrícula CCB 03331984 · Bogotá D.C.<br>
+          veridiam.corporativo@outlook.com
+        </div>
+      </div>
+      <div class="footer__right">
+        <a
+          href="https://wa.me/573058755378"
+          class="footer__wa"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="WhatsApp Veridiam"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          +57 305 8755378
+        </a>
+        <p class="footer__disc">
+          Este servicio es orientación jurídica y no constituye representación legal ni reemplaza la asesoría de un abogado en litigio. Los resultados dependen de cada caso particular.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
