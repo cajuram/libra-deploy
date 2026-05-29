@@ -3,500 +3,438 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Libra — Orientación jurídica en prescripción de deudas · Colombia</title>
-  <meta name="description" content="Averiguamos si tu comparendo, deuda o reporte en Datacrédito ya prescribió. Orientación jurídica por WhatsApp. Veridiam S.A.S. · NIT 901.451.481-2 · Bogotá." />
+  <title>Libra — Prescripción de deudas y comparendos en Colombia · Veridiam</title>
+  <meta name="description" content="Verificamos si tu comparendo, deuda bancaria, predial o reporte en Datacrédito ha superado el término legal de prescripción. Orientación jurídica especializada por WhatsApp. Veridiam S.A.S. · NIT 901.451.481-2 · Bogotá." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://libra.veridiam.co" />
-
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Libra — Tu deuda puede ya no ser válida" />
-  <meta property="og:description" content="Miles de colombianos tienen deudas y comparendos que ya prescribieron legalmente. Averiguamos si el tuyo es uno de ellos." />
+  <meta property="og:title" content="Libra — Tu obligación puede haber prescrito" />
+  <meta property="og:description" content="La prescripción extingue la acción de cobro. Miles de colombianos tienen deudas y comparendos que ya perdieron exigibilidad legal. Averiguamos si el tuyo es uno de ellos." />
   <meta property="og:url" content="https://libra.veridiam.co" />
   <meta property="og:locale" content="es_CO" />
   <meta name="twitter:card" content="summary_large_image" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── TOKENS ─────────────────────────────── */
     :root {
-      --paper:   #FAF6EB;
-      --cream:   #F2EFE4;
-      --ink:     #1A1612;
-      --ink-2:   #3A332C;
-      --muted:   #6B6258;
-      --line:    #D9D2BF;
-      --deep:    #0E7490;
-      --wa:      #25D366;
-      --white:   #FFFFFF;
+      --paper:#FAF6EB; --cream:#F0EDE2; --ink:#1A1612; --ink-2:#3A332C;
+      --muted:#6B6258; --line:#D9D2BF; --deep:#0E7490; --deep-d:#0A5A70;
+      --wa:#25D366; --wa-d:#1EA855; --white:#FFFFFF;
+      --serif:'Newsreader',Georgia,serif;
+      --sans:'Inter',system-ui,sans-serif;
+      --mono:'JetBrains Mono',monospace;
+      --rule:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(26,22,18,.016) 27px,rgba(26,22,18,.016) 28px);
+      --ease-out:cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;overflow-x:hidden}
+    img,svg{display:block}
+    a{color:inherit;text-decoration:none}
 
-      --serif:   'Newsreader', Georgia, serif;
-      --sans:    'Inter', system-ui, sans-serif;
-      --mono:    'JetBrains Mono', monospace;
+    /* ── LAYOUT ── */
+    .wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
 
-      --rule: repeating-linear-gradient(
-        0deg, transparent, transparent 27px,
-        rgba(26,22,18,.018) 27px, rgba(26,22,18,.018) 28px
-      );
-    }
+    /* ── ANIMATIONS ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+    .reveal-left.visible{opacity:1;transform:none}
+    .reveal-right{opacity:0;transform:translateX(32px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+    .reveal-right.visible{opacity:1;transform:none}
+    .delay-1{transition-delay:.1s}
+    .delay-2{transition-delay:.2s}
+    .delay-3{transition-delay:.3s}
+    .delay-4{transition-delay:.4s}
 
-    /* ── RESET ──────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.65; overflow-x: hidden; }
-    img, svg { display: block; }
-    a { color: inherit; text-decoration: none; }
+    /* ── NAV ── */
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      background:rgba(26,22,18,0);
+      border-bottom:1px solid rgba(255,255,255,0);
+      transition:background .3s,border-color .3s,backdrop-filter .3s;
+    }
+    .nav.scrolled{
+      background:rgba(26,22,18,.94);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    }
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;transition:padding .3s}
+    .nav.scrolled .nav__inner{padding:14px 0}
+    .nav__brand{display:flex;align-items:baseline;gap:10px}
+    .nav__name{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
+    .nav__sep{color:rgba(255,255,255,.2);font-family:var(--mono);font-size:13px}
+    .nav__by{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .nav__cta{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--wa);color:#fff;
+      font-family:var(--sans);font-size:13px;font-weight:600;
+      padding:9px 18px;border-radius:3px;
+      transition:background .15s,transform .15s;
+    }
+    .nav__cta:hover{background:var(--wa-d);transform:translateY(-1px)}
+    .nav__cta svg{width:14px;height:14px;flex-shrink:0}
 
-    /* ── LAYOUT ─────────────────────────────── */
-    .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 clamp(20px,5vw,60px); }
-
-    /* ── NAVIGATION ─────────────────────────── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(26,22,18,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+    /* ── HERO ── */
+    .hero{
+      background:var(--ink);
+      background-image:var(--rule);
+      padding:160px 0 130px;
+      position:relative;overflow:hidden;
+      min-height:100vh;display:flex;align-items:center;
     }
-    .nav__inner {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 0;
+    /* Subtle teal glow */
+    .hero::before{
+      content:'';position:absolute;top:-200px;right:-100px;
+      width:600px;height:600px;border-radius:50%;
+      background:radial-gradient(circle,rgba(14,116,144,.15) 0%,transparent 70%);
+      pointer-events:none;
     }
-    .nav__brand { display: flex; align-items: baseline; gap: 10px; }
-    .nav__name {
-      font-family: var(--mono); font-size: 18px; font-weight: 600;
-      letter-spacing: -.01em; color: var(--white);
+    .hero::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(14,116,144,.5) 40%,transparent);
     }
-    .nav__sep { color: rgba(255,255,255,.25); font-family: var(--mono); font-size: 13px; }
-    .nav__by {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(255,255,255,.4);
+    .hero__grid{display:grid;grid-template-columns:1fr 360px;gap:80px;align-items:center;position:relative}
+    .hero__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+    .hero__eyebrow-bar{width:28px;height:1px;background:var(--deep)}
+    .hero__eyebrow-text{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--deep)}
+    .hero__headline{
+      font-family:var(--serif);font-style:italic;font-weight:400;
+      font-size:clamp(40px,5.5vw,76px);letter-spacing:-.04em;line-height:1.04;
+      color:var(--white);margin-bottom:28px;
     }
-    .nav__cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--wa); color: #fff;
-      font-family: var(--sans); font-size: 13px; font-weight: 600;
-      padding: 9px 18px; border-radius: 3px;
-      transition: opacity .15s;
+    .hero__headline em{color:var(--deep);font-style:italic}
+    /* Typing cursor blink */
+    .hero__headline .cursor{
+      display:inline-block;width:3px;height:.85em;background:var(--deep);
+      vertical-align:-.05em;margin-left:4px;
+      animation:blink 1s step-end infinite;
     }
-    .nav__cta:hover { opacity: .88; }
-    .nav__cta svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    /* ── HERO ────────────────────────────────── */
-    .hero {
-      background: var(--ink);
-      background-image: var(--rule);
-      padding: 160px 0 120px;
-      position: relative;
-      overflow: hidden;
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .hero__sub{font-size:clamp(15px,1.2vw,17px);line-height:1.75;color:rgba(255,255,255,.55);max-width:520px;margin-bottom:48px}
+    .hero__cta-stack{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+    .btn-wa{
+      display:inline-flex;align-items:center;gap:10px;
+      background:var(--wa);color:#fff;
+      font-family:var(--sans);font-size:16px;font-weight:600;
+      padding:16px 28px;border-radius:4px;
+      transition:background .15s,transform .2s var(--ease-out),box-shadow .2s;
+      box-shadow:0 0 0 rgba(37,211,102,0);
     }
-    .hero::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(14,116,144,.6) 40%, transparent);
-    }
-    .hero__grid {
-      display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: center;
-    }
-    .hero__eyebrow {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 32px;
-    }
-    .hero__eyebrow-bar { width: 28px; height: 1px; background: var(--deep); }
-    .hero__eyebrow-text {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--deep);
-    }
-    .hero__headline {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: clamp(42px, 5.5vw, 76px);
-      letter-spacing: -.04em; line-height: 1.05;
-      color: var(--white); margin-bottom: 28px;
-    }
-    .hero__headline em { color: var(--deep); font-style: italic; }
-    .hero__sub {
-      font-size: clamp(15px,1.2vw,17px); line-height: 1.75;
-      color: rgba(255,255,255,.6); max-width: 520px; margin-bottom: 48px;
-    }
-    .hero__cta-stack { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-    .btn-wa {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: var(--wa); color: #fff;
-      font-family: var(--sans); font-size: 16px; font-weight: 600;
-      padding: 16px 28px; border-radius: 4px;
-      transition: opacity .15s, transform .15s;
-    }
-    .btn-wa:hover { opacity: .9; transform: translateY(-1px); }
-    .btn-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .hero__note {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.35);
-    }
-    .hero__note::before {
-      content: ''; width: 6px; height: 6px;
-      background: var(--wa); border-radius: 50%; flex-shrink: 0;
-    }
+    .btn-wa:hover{background:var(--wa-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.25)}
+    .btn-wa svg{width:20px;height:20px;flex-shrink:0}
+    .hero__note{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+    .hero__note::before{content:'';width:6px;height:6px;background:var(--wa);border-radius:50%;flex-shrink:0;animation:pulse-dot 2s infinite}
+    @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}50%{box-shadow:0 0 0 6px rgba(37,211,102,0)}}
 
     /* Stats card */
-    .hero__stats {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 6px;
-      padding: 36px 32px;
+    .hero__stats{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:36px 32px}
+    .stat{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:border-color .2s}
+    .stat:last-child{border-bottom:none;padding-bottom:0}
+    .stat:first-child{padding-top:0}
+    .stat__num{font-family:var(--mono);font-size:36px;font-weight:600;color:var(--white);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+    .stat__num span{color:var(--deep)}
+    .stat__label{font-family:var(--sans);font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.5}
+
+    @media(max-width:860px){
+      .hero{min-height:auto;padding:120px 0 80px}
+      .hero__grid{grid-template-columns:1fr;gap:48px}
+      .hero__stats{display:grid;grid-template-columns:1fr 1fr;gap:0}
+      .stat{border-bottom:none;border-right:1px solid rgba(255,255,255,.07);padding:16px 20px}
+      .stat:nth-child(even){border-right:none}
     }
-    .stat { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
-    .stat:last-child { border-bottom: none; padding-bottom: 0; }
-    .stat:first-child { padding-top: 0; }
-    .stat__num {
-      font-family: var(--mono); font-size: 32px; font-weight: 600;
-      color: var(--white); letter-spacing: -.03em; line-height: 1;
-      margin-bottom: 4px;
-    }
-    .stat__num span { color: var(--deep); }
-    .stat__label {
-      font-family: var(--sans); font-size: 12px;
-      color: rgba(255,255,255,.4); line-height: 1.4;
+    @media(max-width:500px){
+      .hero__stats{grid-template-columns:1fr}
+      .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}
+      .stat:last-child{border-bottom:none}
     }
 
-    @media (max-width: 860px) {
-      .hero__grid { grid-template-columns: 1fr; gap: 48px; }
-      .hero__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-      .stat { border-bottom: none; border-right: 1px solid rgba(255,255,255,.07); padding: 16px 20px; }
-      .stat:nth-child(even) { border-right: none; }
-    }
-    @media (max-width: 500px) {
-      .hero { padding: 120px 0 80px; }
-      .hero__stats { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
-      .stat:last-child { border-bottom: none; }
-    }
+    /* ── BAND ── */
+    .band{background:var(--deep);padding:16px 0;overflow:hidden}
+    .band__track{display:flex;gap:0;animation:marquee 28s linear infinite;width:max-content}
+    .band__inner{display:flex;gap:56px;align-items:center;white-space:nowrap;padding-right:56px}
+    .band__item{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+    .band__dot{width:3px;height:3px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* ── BAND ────────────────────────────────── */
-    .band {
-      background: var(--deep);
-      padding: 18px 0;
-      overflow: hidden;
-    }
-    .band__inner {
-      display: flex; gap: 48px; align-items: center;
-      font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(255,255,255,.7);
-      white-space: nowrap; flex-wrap: wrap;
-    }
-    .band__item { display: flex; align-items: center; gap: 10px; }
-    .band__dot { width: 4px; height: 4px; background: rgba(255,255,255,.4); border-radius: 50%; flex-shrink: 0; }
+    /* ── SERVICIOS ── */
+    .services{padding:100px 0;background:var(--paper)}
+    .sec-head{margin-bottom:60px}
+    .sec-label{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .sec-label-bar{width:24px;height:1px;background:var(--deep)}
+    .sec-label-text{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--deep)}
+    .sec-h{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(28px,3.5vw,44px);letter-spacing:-.03em;line-height:1.08;color:var(--ink)}
+    .sec-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:540px;margin-top:16px}
 
-    /* ── SECCIÓN SERVICIOS ───────────────────── */
-    .services { padding: 100px 0; background: var(--paper); }
-    .sec-head { margin-bottom: 60px; }
-    .sec-label {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-    }
-    .sec-label-bar { width: 24px; height: 1px; background: var(--deep); }
-    .sec-label-text {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--deep);
-    }
-    .sec-h {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: clamp(28px,3.5vw,44px);
-      letter-spacing: -.03em; line-height: 1.1; color: var(--ink);
-    }
-    .sec-sub {
-      font-size: 16px; color: var(--muted); line-height: 1.7;
-      max-width: 520px; margin-top: 16px;
-    }
+    .services__grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    @media(max-width:720px){.services__grid{grid-template-columns:1fr}}
 
-    .services__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    @media (max-width: 720px) { .services__grid { grid-template-columns: 1fr; } }
+    .svc{
+      background:var(--white);border:1px solid var(--line);padding:36px 32px;
+      position:relative;cursor:default;
+      transition:border-color .25s,transform .25s var(--ease-out),box-shadow .25s;
+    }
+    .svc::before{
+      content:'';position:absolute;inset:0;border-radius:0;
+      background:linear-gradient(135deg,rgba(14,116,144,.04) 0%,transparent 60%);
+      opacity:0;transition:opacity .25s;
+    }
+    .svc:hover{border-color:var(--deep);transform:translateY(-3px);box-shadow:0 12px 32px rgba(14,116,144,.1)}
+    .svc:hover::before{opacity:1}
+    .svc__icon{width:36px;height:36px;margin-bottom:24px;color:var(--deep);transition:transform .3s var(--ease-out)}
+    .svc:hover .svc__icon{transform:scale(1.1)}
+    .svc__title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px;line-height:1.2}
+    .svc__desc{font-size:14px;color:var(--ink-2);line-height:1.68;margin-bottom:20px}
+    .svc__footer{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--line)}
+    .svc__norm{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .svc__cta{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--deep);font-weight:600;
+      transition:gap .2s;
+    }
+    .svc:hover .svc__cta{gap:10px}
+    .svc__cta-arrow{font-size:12px;transition:transform .2s}
+    .svc:hover .svc__cta-arrow{transform:translateX(3px)}
 
-    .svc {
-      background: var(--white);
-      border: 1px solid var(--line);
-      padding: 36px 32px;
-      position: relative;
-      transition: border-color .2s;
+    /* ── CÓMO FUNCIONA ── */
+    .how{padding:100px 0;background:var(--cream);position:relative}
+    .how__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+    @media(max-width:700px){.how__grid{grid-template-columns:1fr}}
+    .step{
+      background:var(--white);border:1px solid var(--line);padding:36px 28px;
+      transition:border-color .25s,transform .25s var(--ease-out);
     }
-    .svc:hover { border-color: var(--deep); }
-    .svc__icon {
-      width: 40px; height: 40px; margin-bottom: 24px;
-      color: var(--deep);
-    }
-    .svc__title {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: 22px; letter-spacing: -.02em;
-      color: var(--ink); margin-bottom: 10px;
-    }
-    .svc__desc {
-      font-size: 14px; color: var(--ink-2); line-height: 1.65;
-      margin-bottom: 20px;
-    }
-    .svc__footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 20px; border-top: 1px solid var(--line);
-    }
-    .svc__norm {
-      font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--muted);
-    }
+    .step:hover{border-color:rgba(14,116,144,.4);transform:translateY(-2px)}
+    .step__num{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--deep);margin-bottom:28px}
+    .step__title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:20px;letter-spacing:-.02em;color:var(--ink);margin-bottom:12px}
+    .step__body{font-size:14px;color:var(--ink-2);line-height:1.65}
 
-    /* ── CÓMO FUNCIONA ───────────────────────── */
-    .how { padding: 100px 0; background: var(--cream); }
-    .how__grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
-      margin-top: 56px;
-    }
-    @media (max-width: 700px) { .how__grid { grid-template-columns: 1fr; } }
-    .step {
-      background: var(--white);
-      border: 1px solid var(--line);
-      padding: 36px 28px;
-    }
-    .step__num {
-      font-family: var(--mono); font-size: 11px; font-weight: 600;
-      letter-spacing: .1em; color: var(--deep); margin-bottom: 28px;
-    }
-    .step__title {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: 20px; letter-spacing: -.02em; color: var(--ink);
-      margin-bottom: 12px;
-    }
-    .step__body { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+    /* ── LEGAL STRIP ── */
+    .legal-strip{padding:88px 0;background:var(--paper);border-top:1px solid var(--line)}
+    .legal-strip__inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+    @media(max-width:700px){.legal-strip__inner{grid-template-columns:1fr;gap:40px}}
+    .legal-strip__h{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(24px,3vw,38px);letter-spacing:-.03em;color:var(--ink);margin-bottom:18px;line-height:1.08}
+    .legal-strip__p{font-size:15px;color:var(--ink-2);line-height:1.75}
+    .legal-strip__note{margin-top:20px;padding:16px 18px;background:var(--cream);border-left:2px solid var(--deep);font-size:13px;color:var(--muted);font-style:italic;line-height:1.6}
 
-    /* ── LEGAL STRIP ─────────────────────────── */
-    .legal-strip { padding: 80px 0; background: var(--paper); border-top: 1px solid var(--line); }
-    .legal-strip__inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    .norms{display:flex;flex-direction:column;gap:10px}
+    .norm{
+      display:flex;align-items:flex-start;gap:14px;
+      padding:16px 18px;border:1px solid var(--line);border-radius:3px;background:var(--white);
+      transition:border-color .2s,transform .2s var(--ease-out);
     }
-    @media (max-width: 700px) { .legal-strip__inner { grid-template-columns: 1fr; gap: 40px; } }
-    .legal-strip__copy {}
-    .legal-strip__h {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: clamp(24px,3vw,36px); letter-spacing: -.03em;
-      color: var(--ink); margin-bottom: 16px; line-height: 1.1;
-    }
-    .legal-strip__p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
-    .norms { display: flex; flex-direction: column; gap: 12px; }
-    .norm {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 16px 20px;
-      border: 1px solid var(--line); border-radius: 3px;
-      background: var(--white);
-    }
-    .norm__icon { width: 20px; height: 20px; color: var(--deep); flex-shrink: 0; margin-top: 1px; }
-    .norm__ref {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--deep); margin-bottom: 2px;
-    }
-    .norm__text { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+    .norm:hover{border-color:var(--deep);transform:translateX(4px)}
+    .norm__icon{width:18px;height:18px;color:var(--deep);flex-shrink:0;margin-top:2px}
+    .norm__ref{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-bottom:3px}
+    .norm__text{font-size:13px;color:var(--ink-2);line-height:1.5}
 
-    /* ── CTA FINAL ───────────────────────────── */
-    .cta-block {
-      background: var(--ink);
-      padding: 100px 0;
-      text-align: center;
-      position: relative; overflow: hidden;
+    /* ── PREGUNTA FRECUENTE ── */
+    .faq{padding:88px 0;background:var(--cream)}
+    .faq__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:52px}
+    @media(max-width:700px){.faq__grid{grid-template-columns:1fr}}
+    .faq-item{border:1px solid var(--line);background:var(--white);border-radius:3px;overflow:hidden}
+    .faq-item__q{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 22px;cursor:pointer;gap:16px;
+      font-weight:500;font-size:14px;color:var(--ink);line-height:1.45;
+      transition:background .15s;
+      user-select:none;
     }
-    .cta-block::before {
-      content: '';
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 320px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--deep), transparent);
+    .faq-item__q:hover{background:var(--cream)}
+    .faq-item__icon{
+      width:18px;height:18px;flex-shrink:0;color:var(--deep);
+      transition:transform .3s var(--ease-out);
     }
-    .cta-block__label {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--deep); margin-bottom: 24px;
+    .faq-item.open .faq-item__icon{transform:rotate(45deg)}
+    .faq-item__a{
+      max-height:0;overflow:hidden;
+      transition:max-height .4s var(--ease-out),padding .3s;
+      padding:0 22px;
     }
-    .cta-block__h {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: clamp(32px,4.5vw,60px); letter-spacing: -.04em;
-      color: var(--white); margin-bottom: 20px; line-height: 1.05;
-    }
-    .cta-block__sub {
-      font-size: 16px; color: rgba(255,255,255,.5);
-      max-width: 480px; margin: 0 auto 48px; line-height: 1.7;
-    }
-    .cta-block__wa {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 24px;
-    }
+    .faq-item.open .faq-item__a{max-height:300px;padding:0 22px 20px}
+    .faq-item__a p{font-size:13.5px;color:var(--ink-2);line-height:1.7;border-top:1px solid var(--line);padding-top:16px}
 
-    /* ── FOOTER ──────────────────────────────── */
-    .footer {
-      background: #110F0C;
-      padding: 48px 0;
-      border-top: 1px solid rgba(255,255,255,.05);
+    /* ── CTA FINAL ── */
+    .cta-block{background:var(--ink);padding:110px 0;text-align:center;position:relative;overflow:hidden}
+    .cta-block::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:400px;height:1px;background:linear-gradient(90deg,transparent,var(--deep),transparent)}
+    .cta-block::after{content:'';position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(14,116,144,.12) 0%,transparent 70%);pointer-events:none}
+    .cta-block__label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--deep);margin-bottom:24px}
+    .cta-block__h{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(30px,4.5vw,60px);letter-spacing:-.04em;color:var(--white);margin-bottom:20px;line-height:1.04;position:relative;z-index:1}
+    .cta-block__sub{font-size:16px;color:rgba(255,255,255,.45);max-width:460px;margin:0 auto 48px;line-height:1.75;position:relative;z-index:1}
+    .cta-block__wa{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:24px;position:relative;z-index:1}
+
+    /* ── FOOTER ── */
+    .footer{background:#100E0B;padding:52px 0;border-top:1px solid rgba(255,255,255,.05)}
+    .footer__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap}
+    .footer__brand-name{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px}
+    .footer__brand-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);line-height:2}
+    .footer__right{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+    .footer__wa{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--wa);letter-spacing:.04em;transition:opacity .15s}
+    .footer__wa:hover{opacity:.75}
+    .footer__wa svg{width:14px;height:14px}
+    .footer__disc{font-size:11px;color:rgba(255,255,255,.2);line-height:1.65;max-width:300px;text-align:right}
+    @media(max-width:600px){.footer__inner{flex-direction:column}.footer__right{align-items:flex-start}.footer__disc{text-align:left}}
+
+    /* ── WA FLOAT ── */
+    .wa-float{
+      position:fixed;bottom:28px;right:28px;z-index:300;
+      display:flex;align-items:center;gap:10px;
+      background:var(--wa);color:#fff;
+      font-family:var(--sans);font-size:13px;font-weight:600;
+      padding:12px 20px 12px 16px;border-radius:50px;
+      box-shadow:0 4px 20px rgba(37,211,102,.4);
+      transition:transform .2s var(--ease-out),box-shadow .2s;
+      opacity:0;transform:translateY(12px) scale(.95);pointer-events:none;
     }
-    .footer__inner {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 40px; flex-wrap: wrap;
-    }
-    .footer__brand-name {
-      font-family: var(--mono); font-size: 16px; font-weight: 600;
-      color: var(--white); margin-bottom: 6px;
-    }
-    .footer__brand-sub {
-      font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.3); line-height: 1.8;
-    }
-    .footer__right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-    .footer__wa {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 12px; color: var(--wa);
-      letter-spacing: .04em;
-      transition: opacity .15s;
-    }
-    .footer__wa:hover { opacity: .75; }
-    .footer__wa svg { width: 14px; height: 14px; }
-    .footer__disc {
-      font-size: 11px; color: rgba(255,255,255,.2); line-height: 1.6;
-      max-width: 320px; text-align: right;
-    }
-    @media (max-width: 600px) {
-      .footer__inner { flex-direction: column; }
-      .footer__right { align-items: flex-start; }
-      .footer__disc { text-align: left; }
-    }
+    .wa-float.visible{opacity:1;transform:none;pointer-events:auto}
+    .wa-float:hover{transform:scale(1.04);box-shadow:0 8px 28px rgba(37,211,102,.5)}
+    .wa-float svg{width:18px;height:18px;flex-shrink:0}
+    @media(max-width:480px){.wa-float span{display:none}.wa-float{padding:14px}}
   </style>
 </head>
 <body>
 
-  <!-- ─── NAV ─────────────────────────────────── -->
-  <nav class="nav" role="navigation" aria-label="Navegación principal">
+  <!-- FLOATING WA BUTTON -->
+  <a
+    id="wa-float"
+    href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
+    class="wa-float"
+    target="_blank" rel="noopener noreferrer"
+    aria-label="Consultar por WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>Consultar ahora</span>
+  </a>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav" role="navigation">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <span class="nav__name">Libra</span>
         <span class="nav__sep">/</span>
         <span class="nav__by">Veridiam S.A.S.</span>
       </div>
-      <a
-        href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
-        class="nav__cta"
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Escribir al WhatsApp de Libra"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Escríbenos ahora
+      <a href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió" class="nav__cta" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escríbenos
       </a>
     </div>
   </nav>
 
-  <!-- ─── HERO ─────────────────────────────────── -->
-  <section class="hero" aria-label="Sección principal">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-h">
     <div class="wrap hero__grid">
-      <div class="hero__copy">
-        <div class="hero__eyebrow">
+      <div>
+        <div class="hero__eyebrow reveal">
           <div class="hero__eyebrow-bar"></div>
-          <span class="hero__eyebrow-text">Orientación jurídica · Colombia</span>
+          <span class="hero__eyebrow-text">Orientación jurídica especializada · Colombia</span>
         </div>
-        <h1 class="hero__headline serif-headline">
-          Tu deuda puede<br>ya <em>no ser válida</em>
+        <h1 class="hero__headline reveal delay-1" id="hero-h">
+          Tu obligación puede<br>haber <em id="typed-word">prescrito</em><span class="cursor" id="cursor" aria-hidden="true"></span>
         </h1>
-        <p class="hero__sub">
-          La ley colombiana establece plazos precisos de prescripción para comparendos, predial y deudas bancarias. Una vez vencidos, la obligación pierde su exigibilidad legal.
+        <p class="hero__sub reveal delay-2">
+          La prescripción extingue la acción de cobro. Una vez vencido el término legal, la entidad pierde el derecho a exigir el pago por vía judicial o coactiva. Verificamos si tu caso ha alcanzado ese umbral.
         </p>
-        <div class="hero__cta-stack">
-          <a
-            href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
-            class="btn-wa"
-            target="_blank" rel="noopener noreferrer"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Consultar mi caso gratis
+        <div class="hero__cta-stack reveal delay-3">
+          <a href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió" class="btn-wa" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Consultar mi caso — Sin costo
           </a>
-          <p class="hero__note">Diagnóstico inicial sin costo · Solo WhatsApp</p>
+          <p class="hero__note">Diagnóstico inicial gratuito · Respuesta en menos de 24 h</p>
         </div>
       </div>
 
-      <div class="hero__stats" aria-label="Indicadores">
+      <div class="hero__stats reveal-right delay-2">
         <div class="stat">
-          <div class="stat__num">3<span>años</span></div>
-          <div class="stat__label">Plazo de prescripción de comparendos<br>(Art. 159 Ley 769/2002)</div>
+          <div class="stat__num"><span class="counter" data-target="3">0</span><span>&nbsp;años</span></div>
+          <div class="stat__label">Término de prescripción de comparendos de tránsito<br>(Art. 159, Ley 769/2002)</div>
         </div>
         <div class="stat">
-          <div class="stat__num">5<span>años</span></div>
-          <div class="stat__label">Prescripción de deudas de predial<br>(Art. 817 E.T. mod. Ley 1066/2006)</div>
+          <div class="stat__num"><span class="counter" data-target="5">0</span><span>&nbsp;años</span></div>
+          <div class="stat__label">Prescripción de la acción de cobro del predial<br>(Art. 817 E.T., mod. Ley 1066/2006)</div>
         </div>
         <div class="stat">
-          <div class="stat__num">4<span>años</span></div>
-          <div class="stat__label">Máximo para reporte negativo en Datacrédito<br>(Ley 1266/2008, Art. 13)</div>
+          <div class="stat__num"><span class="counter" data-target="4">0</span><span>&nbsp;años</span></div>
+          <div class="stat__label">Plazo máximo de reporte negativo en centrales de riesgo<br>(Ley 1266/2008, Art. 13)</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── BAND ──────────────────────────────────── -->
+  <!-- BAND marquee -->
   <div class="band" aria-hidden="true">
-    <div class="wrap band__inner">
-      <span class="band__item"><span class="band__dot"></span>Constituida en 2021</span>
-      <span class="band__item"><span class="band__dot"></span>NIT 901.451.481-2</span>
-      <span class="band__item"><span class="band__dot"></span>Cámara de Comercio de Bogotá</span>
-      <span class="band__item"><span class="band__dot"></span>Matrícula 03331984</span>
-      <span class="band__item"><span class="band__dot"></span>Bogotá D.C. · Colombia</span>
+    <div class="band__track">
+      <div class="band__inner">
+        <span class="band__item"><span class="band__dot"></span>Veridiam S.A.S.</span>
+        <span class="band__item"><span class="band__dot"></span>NIT 901.451.481-2</span>
+        <span class="band__item"><span class="band__dot"></span>Cámara de Comercio de Bogotá</span>
+        <span class="band__item"><span class="band__dot"></span>Matrícula 03331984</span>
+        <span class="band__item"><span class="band__dot"></span>Constituida 2021</span>
+        <span class="band__item"><span class="band__dot"></span>Bogotá D.C. · Colombia</span>
+        <span class="band__item"><span class="band__dot"></span>CIIU 7020 · 6201 · 8211</span>
+      </div>
+      <div class="band__inner" aria-hidden="true">
+        <span class="band__item"><span class="band__dot"></span>Veridiam S.A.S.</span>
+        <span class="band__item"><span class="band__dot"></span>NIT 901.451.481-2</span>
+        <span class="band__item"><span class="band__dot"></span>Cámara de Comercio de Bogotá</span>
+        <span class="band__item"><span class="band__dot"></span>Matrícula 03331984</span>
+        <span class="band__item"><span class="band__dot"></span>Constituida 2021</span>
+        <span class="band__item"><span class="band__dot"></span>Bogotá D.C. · Colombia</span>
+        <span class="band__item"><span class="band__dot"></span>CIIU 7020 · 6201 · 8211</span>
+      </div>
     </div>
   </div>
 
-  <!-- ─── SERVICIOS ─────────────────────────────── -->
-  <section class="services" aria-labelledby="services-h">
+  <!-- SERVICIOS -->
+  <section class="services" aria-labelledby="svc-h">
     <div class="wrap">
       <div class="sec-head">
-        <div class="sec-label">
-          <div class="sec-label-bar"></div>
-          <span class="sec-label-text">Nuestros servicios</span>
-        </div>
-        <h2 class="sec-h" id="services-h">Cuatro áreas donde<br>la norma trabaja a tu favor</h2>
-        <p class="sec-sub">Cada servicio incluye evaluación del caso, diagnóstico de prescripción y elaboración del documento legal correspondiente.</p>
+        <div class="sec-label reveal"><div class="sec-label-bar"></div><span class="sec-label-text">Áreas de orientación</span></div>
+        <h2 class="sec-h reveal delay-1" id="svc-h">Cuatro figuras jurídicas<br>que la ley colombiana consagra a tu favor</h2>
+        <p class="sec-sub reveal delay-2">Cada servicio incluye la verificación del término aplicable, el análisis de posibles causales de interrupción o suspensión, y la elaboración del instrumento legal pertinente.</p>
       </div>
-
       <div class="services__grid">
 
-        <!-- 1 -->
-        <div class="svc">
-          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/>
-          </svg>
-          <h3 class="svc__title">Comparendos de tránsito</h3>
-          <p class="svc__desc">Si tu comparendo tiene más de 3 años desde su fecha de firmeza sin que te hayan notificado un mandamiento de pago, la acción de cobro coactivo está prescrita. Preparamos el derecho de petición o la excepción procesal.</p>
+        <div class="svc reveal delay-1">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/></svg>
+          <h3 class="svc__title">Prescripción de comparendos</h3>
+          <p class="svc__desc">Conforme al artículo 159 del Código Nacional de Tránsito, la acción de cobro de un comparendo prescribe en tres (3) años contados desde la ejecutoria del acto administrativo sancionatorio. Transcurrido ese plazo sin que se haya iniciado y notificado el correspondiente proceso de cobro coactivo, la obligación pierde su exigibilidad jurídica.</p>
           <div class="svc__footer">
             <span class="svc__norm">Art. 159 · Ley 769/2002</span>
+            <span class="svc__cta">Consultar <span class="svc__cta-arrow">→</span></span>
           </div>
         </div>
 
-        <!-- 2 -->
-        <div class="svc">
-          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
-          </svg>
-          <h3 class="svc__title">Impuesto predial</h3>
-          <p class="svc__desc">La acción de cobro coactivo del predial prescribe en 5 años contados desde el vencimiento de cada vigencia fiscal. Deudas antiguas con el municipio pueden ya no ser exigibles si no ha habido cobro coactivo notificado.</p>
+        <div class="svc reveal delay-2">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+          <h3 class="svc__title">Prescripción del impuesto predial</h3>
+          <p class="svc__desc">El artículo 817 del Estatuto Tributario, modificado por la Ley 1066 de 2006, establece que la acción de cobro de las obligaciones tributarias de las entidades territoriales prescribe en el término de cinco (5) años. El cómputo se inicia desde el vencimiento del plazo para declarar y pagar. Un abono voluntario a la deuda o la notificación de un mandamiento de pago interrumpen el término.</p>
           <div class="svc__footer">
             <span class="svc__norm">Art. 817 E.T. · Ley 1066/2006</span>
+            <span class="svc__cta">Consultar <span class="svc__cta-arrow">→</span></span>
           </div>
         </div>
 
-        <!-- 3 -->
-        <div class="svc">
-          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/>
-          </svg>
-          <h3 class="svc__title">Deudas bancarias y financieras</h3>
-          <p class="svc__desc">Tarjetas de crédito, microcréditos, libranzas y préstamos de cooperativas tienen términos de prescripción ejecutiva de 3 a 5 años según el título. Si no han demandado en ese plazo, la deuda puede estar prescrita.</p>
+        <div class="svc reveal delay-1">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+          <h3 class="svc__title">Prescripción de deudas bancarias y comerciales</h3>
+          <p class="svc__desc">El artículo 2536 del Código Civil, reducido por la Ley 791 de 2002, fija la prescripción ordinaria en diez (10) años y la ejecutiva en cinco (5). En obligaciones derivadas de pagarés, tarjetas de crédito y libranzas, el término ejecutivo suele comenzar desde la mora del primer cuota. Si el acreedor no ha demandado ejecutivamente dentro del plazo legal, la deuda prescribe.</p>
           <div class="svc__footer">
             <span class="svc__norm">Art. 2536 C.C. · Ley 791/2002</span>
+            <span class="svc__cta">Consultar <span class="svc__cta-arrow">→</span></span>
           </div>
         </div>
 
-        <!-- 4 -->
-        <div class="svc">
-          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
-          </svg>
-          <h3 class="svc__title">Eliminación de reportes Datacrédito</h3>
-          <p class="svc__desc">La Ley de Habeas Data establece que los reportes negativos se eliminan al doble del tiempo en mora, sin exceder 4 años desde la extinción. Si tu reporte sigue activo más allá de ese plazo, es ilegal y puede retirarse.</p>
+        <div class="svc reveal delay-2">
+          <svg class="svc__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          <h3 class="svc__title">Eliminación de reportes en centrales de riesgo</h3>
+          <p class="svc__desc">La Ley 1266 de 2008 —Ley de Habeas Data Financiero— dispone en su artículo 13 que el dato negativo permanecerá en las centrales de riesgo por un término igual al doble del tiempo de mora, sin que en ningún caso pueda exceder cuatro (4) años desde la fecha de extinción de la obligación. Superado ese plazo, el reporte se torna ilegal y procede su eliminación mediante derecho de petición o queja ante la Superintendencia de Industria y Comercio.</p>
           <div class="svc__footer">
             <span class="svc__norm">Ley 1266/2008 · Art. 13</span>
+            <span class="svc__cta">Consultar <span class="svc__cta-arrow">→</span></span>
           </div>
         </div>
 
@@ -504,97 +442,124 @@
     </div>
   </section>
 
-  <!-- ─── CÓMO FUNCIONA ─────────────────────────── -->
+  <!-- CÓMO FUNCIONA -->
   <section class="how" aria-labelledby="how-h">
     <div class="wrap">
       <div class="sec-head">
-        <div class="sec-label">
-          <div class="sec-label-bar"></div>
-          <span class="sec-label-text">El proceso</span>
-        </div>
-        <h2 class="sec-h" id="how-h">Tres pasos,<br>sin trámites presenciales</h2>
+        <div class="sec-label reveal"><div class="sec-label-bar"></div><span class="sec-label-text">El proceso</span></div>
+        <h2 class="sec-h reveal delay-1" id="how-h">Sin trámites presenciales.<br>Sin honorarios adelantados.</h2>
       </div>
-
       <div class="how__grid">
-        <div class="step">
-          <div class="step__num">01 &mdash; Contacto</div>
-          <h3 class="step__title">Escríbenos por WhatsApp</h3>
-          <p class="step__body">Cuéntanos el tipo de deuda o comparendo, la fecha aproximada y el municipio. No necesitas ningún documento en este momento.</p>
+        <div class="step reveal delay-1">
+          <div class="step__num">01 — Contacto inicial</div>
+          <h3 class="step__title">Cuéntenos su caso por WhatsApp</h3>
+          <p class="step__body">Indíquenos el tipo de obligación (comparendo, predial, deuda bancaria o reporte en Datacrédito), la fecha aproximada de origen y el municipio. No se requiere ningún documento en esta etapa.</p>
         </div>
-        <div class="step">
-          <div class="step__num">02 &mdash; Diagnóstico</div>
-          <h3 class="step__title">Evaluamos tu caso sin costo</h3>
-          <p class="step__body">Verificamos si el término de prescripción ya se cumplió según la norma aplicable. Te informamos el resultado y qué puede hacerse.</p>
+        <div class="step reveal delay-2">
+          <div class="step__num">02 — Diagnóstico jurídico</div>
+          <h3 class="step__title">Verificamos el término de prescripción</h3>
+          <p class="step__body">Analizamos la norma aplicable, el momento a partir del cual empieza a correr el término, y si han ocurrido hechos que lo interrumpan o suspendan. Le comunicamos el resultado del análisis sin costo alguno.</p>
         </div>
-        <div class="step">
-          <div class="step__num">03 &mdash; Gestión</div>
-          <h3 class="step__title">Preparamos el documento legal</h3>
-          <p class="step__body">Si procede, elaboramos el derecho de petición, la excepción o la queja ante la SIC. Te orientamos en cada paso del proceso.</p>
+        <div class="step reveal delay-3">
+          <div class="step__num">03 — Gestión documental</div>
+          <h3 class="step__title">Elaboramos el instrumento legal</h3>
+          <p class="step__body">Si el término está vencido, redactamos el derecho de petición, la excepción de prescripción en el proceso coactivo o la queja ante la SIC, según corresponda, y le orientamos en su presentación.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── LEGAL STRIP ───────────────────────────── -->
+  <!-- LEGAL -->
   <section class="legal-strip" aria-labelledby="legal-h">
     <div class="wrap legal-strip__inner">
-      <div class="legal-strip__copy">
-        <h2 class="legal-strip__h" id="legal-h">Fundamento<br>en la norma vigente</h2>
-        <p class="legal-strip__p">No ofrecemos estrategias creativas. Aplicamos derechos que la legislación colombiana ya te otorga. La prescripción no es un truco legal — es un principio reconocido por el Código Civil, el Estatuto Tributario y las leyes de protección al consumidor financiero.</p>
+      <div class="reveal-left">
+        <h2 class="legal-strip__h" id="legal-h">Actuamos con<br>respaldo normativo</h2>
+        <p class="legal-strip__p">La prescripción no es un mecanismo para eludir obligaciones legítimas. Es un principio de orden público reconocido por el ordenamiento jurídico colombiano, consagrado para garantizar la seguridad jurídica y proteger a los ciudadanos frente a la inactividad prolongada de los acreedores o entidades de cobro.</p>
+        <p class="legal-strip__note">"La prescripción que extingue las acciones y derechos ajenos exige solamente cierto lapso de tiempo durante el cual no se hayan ejercido dichas acciones." — Art. 2535, Código Civil colombiano.</p>
       </div>
-      <div class="norms" role="list">
-        <div class="norm" role="listitem">
-          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-          <div>
-            <div class="norm__ref">Art. 159 · Ley 769/2002</div>
-            <div class="norm__text">Prescripción de la acción de cobro de comparendos en 3 años</div>
-          </div>
+      <div class="norms reveal-right">
+        <div class="norm">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div><div class="norm__ref">Ley 769/2002 · Art. 159</div><div class="norm__text">Prescripción de la acción de cobro coactivo de comparendos en tres (3) años</div></div>
         </div>
-        <div class="norm" role="listitem">
-          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-          <div>
-            <div class="norm__ref">Art. 817 E.T. · Ley 1066/2006</div>
-            <div class="norm__text">Prescripción de la acción de cobro coactivo del predial en 5 años</div>
-          </div>
+        <div class="norm">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div><div class="norm__ref">Estatuto Tributario · Art. 817 · Ley 1066/2006</div><div class="norm__text">Prescripción quinquenal de la acción de cobro del impuesto predial</div></div>
         </div>
-        <div class="norm" role="listitem">
-          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-          <div>
-            <div class="norm__ref">Art. 2536 C.C. · Ley 791/2002</div>
-            <div class="norm__text">Prescripción ordinaria y ejecutiva de deudas bancarias y comerciales</div>
-          </div>
+        <div class="norm">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div><div class="norm__ref">Código Civil · Art. 2536 · Ley 791/2002</div><div class="norm__text">Prescripción ordinaria (10 años) y ejecutiva (5 años) de obligaciones civiles y comerciales</div></div>
         </div>
-        <div class="norm" role="listitem">
-          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-          <div>
-            <div class="norm__ref">Ley 1266/2008 · Art. 13</div>
-            <div class="norm__text">Término máximo de permanencia de datos negativos en centrales de riesgo</div>
-          </div>
+        <div class="norm">
+          <svg class="norm__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          <div><div class="norm__ref">Ley 1266/2008 · Art. 13 (Habeas Data Financiero)</div><div class="norm__text">Plazo máximo de permanencia de datos negativos en centrales de riesgo financiero</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── CTA ───────────────────────────────────── -->
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-label reveal"><div class="sec-label-bar"></div><span class="sec-label-text">Preguntas frecuentes</span></div>
+        <h2 class="sec-h reveal delay-1" id="faq-h">Respuestas a las dudas<br>más comunes</h2>
+      </div>
+      <div class="faq__grid">
+
+        <div class="faq-item reveal delay-1">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">
+            ¿La prescripción opera automáticamente?
+            <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          </div>
+          <div class="faq-item__a"><p>No. En la mayoría de los casos la prescripción debe ser alegada expresamente por el deudor o su apoderado mediante excepción dentro del proceso coactivo o a través de un derecho de petición ante la entidad competente. No opera de pleno derecho sin que el interesado la invoque.</p></div>
+        </div>
+
+        <div class="faq-item reveal delay-2">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">
+            ¿Qué interrumpe la prescripción de un comparendo?
+            <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          </div>
+          <div class="faq-item__a"><p>Únicamente la notificación válida del mandamiento de pago dentro del proceso de cobro coactivo interrumpe el término. Las cartas de cobro, llamadas telefónicas, mensajes de texto o correos electrónicos de entidades o casas de cobranza NO tienen efecto interruptivo en la prescripción.</p></div>
+        </div>
+
+        <div class="faq-item reveal delay-1">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">
+            ¿Puedo pedir la eliminación de mi reporte si la deuda aún existe?
+            <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          </div>
+          <div class="faq-item__a"><p>Sí, cuando el tiempo de permanencia del dato negativo ha superado el doble de la mora o los cuatro (4) años desde la extinción de la obligación. El reporte negativo tiene un plazo máximo legal independiente de si la deuda se pagó o no.</p></div>
+        </div>
+
+        <div class="faq-item reveal delay-2">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">
+            ¿Es necesario contratar un abogado?
+            <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          </div>
+          <div class="faq-item__a"><p>Para presentar un derecho de petición o una queja ante la SIC, cualquier persona puede actuar directamente. Si la obligación ya está en proceso coactivo con mandamiento de pago notificado, sí es recomendable contar con orientación jurídica especializada para proponer la excepción dentro del término legal.</p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
   <section class="cta-block" aria-labelledby="cta-h">
     <div class="wrap">
-      <p class="cta-block__label">¿Aplica en tu caso?</p>
-      <h2 class="cta-block__h" id="cta-h">Solo necesitas la fecha.<br>Nosotros hacemos el resto.</h2>
-      <p class="cta-block__sub">Cuéntanos cuándo ocurrió la deuda o el comparendo. En menos de 24 horas te decimos si ya prescribió y qué puedes hacer.</p>
-      <a
-        href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió"
-        class="btn-wa"
-        style="margin: 0 auto;"
-        target="_blank" rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Consultar por WhatsApp
-      </a>
-      <p class="cta-block__wa">+57 305 8755378 · Respuesta en menos de 24 h</p>
+      <p class="cta-block__label reveal">Dé el primer paso</p>
+      <h2 class="cta-block__h reveal delay-1" id="cta-h">Solo necesita la fecha.<br>Nosotros hacemos el análisis.</h2>
+      <p class="cta-block__sub reveal delay-2">Cuéntenos cuándo se originó la obligación. En menos de 24 horas le informamos si el término de prescripción ya se cumplió y qué opciones tiene a su disposición.</p>
+      <div class="reveal delay-3">
+        <a href="https://wa.me/573058755378?text=Hola%2C+quiero+saber+si+mi+deuda+o+comparendo+ya+prescribió" class="btn-wa" style="margin:0 auto" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
+      <p class="cta-block__wa reveal delay-4">+57 305 8755378 · Diagnóstico sin costo · Atención en 24 h</p>
     </div>
   </section>
 
-  <!-- ─── FOOTER ────────────────────────────────── -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="wrap footer__inner">
       <div>
@@ -602,25 +567,88 @@
         <div class="footer__brand-sub">
           VERIDIAM S.A.S. · NIT 901.451.481-2<br>
           Matrícula CCB 03331984 · Bogotá D.C.<br>
-          veridiam.corporativo@outlook.com
+          veridiam.corporativo@outlook.com<br>
+          Calle 181 C 13 54 Torre 18 Interior 101
         </div>
       </div>
       <div class="footer__right">
-        <a
-          href="https://wa.me/573058755378"
-          class="footer__wa"
-          target="_blank" rel="noopener noreferrer"
-          aria-label="WhatsApp Veridiam"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <a href="https://wa.me/573058755378" class="footer__wa" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           +57 305 8755378
         </a>
-        <p class="footer__disc">
-          Este servicio es orientación jurídica y no constituye representación legal ni reemplaza la asesoría de un abogado en litigio. Los resultados dependen de cada caso particular.
-        </p>
+        <p class="footer__disc">Este servicio constituye orientación jurídica general y no representa asesoría legal especializada ni relación abogado-cliente. Los resultados dependen de las circunstancias particulares de cada caso.</p>
       </div>
     </div>
   </footer>
 
+  <script>
+    // ── NAV scroll ──
+    const nav = document.getElementById('nav');
+    const waFloat = document.getElementById('wa-float');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 40);
+      waFloat.classList.toggle('visible', y > 500);
+    }, { passive: true });
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => ro.observe(el));
+
+    // ── Counters ──
+    const counters = document.querySelectorAll('.counter');
+    const co = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.target;
+        let start = 0;
+        const duration = 1200;
+        const step = (timestamp) => {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          el.textContent = Math.floor(progress * target);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target;
+        };
+        requestAnimationFrame(step);
+        co.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => co.observe(c));
+
+    // ── FAQ accordion ──
+    document.querySelectorAll('.faq-item__q').forEach(btn => {
+      const handler = () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        btn.setAttribute('aria-expanded', 'false');
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      };
+      btn.addEventListener('click', handler);
+      btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } });
+    });
+
+    // ── Typing effect on hero ──
+    const words = ['prescrito', 'vencido', 'extinguido', 'inexigible'];
+    const el = document.getElementById('typed-word');
+    let wi = 0, ci = 0, deleting = false;
+    function type() {
+      const word = words[wi];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) { deleting = true; setTimeout(type, 2200); return; }
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(type, 300); return; }
+      }
+      setTimeout(type, deleting ? 60 : 90);
+    }
+    setTimeout(type, 1200);
+  </script>
 </body>
 </html>
