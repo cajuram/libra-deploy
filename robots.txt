@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /_og-source.html
+Sitemap: https://libra.veridiam.co/sitemap.xml

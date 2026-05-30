@@ -1,0 +1,11 @@
+# Documentos internos — NO desplegar (Vercel serviría estos archivos públicamente)
+LIBRA_MASTER.md
+PLAN_ORGANICO.md
+SEO_BACKLINKS.md
+
+# Config local del entorno
+.claude/
+
+# Sistema
+.DS_Store
+Thumbs.db
