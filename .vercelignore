@@ -1,0 +1,12 @@
+# Documentos internos — no desplegar a producción
+LIBRA_MASTER.md
+PLAN_ORGANICO.md
+SEO_BACKLINKS.md
+
+# Config local / control de versiones
+.claude/
+.git/
+.gitignore
+
+# Sistema
+.DS_Store
